@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <title>Wordle</title>
+  </head>
+  <body class="bg-black text-white">
+    <div class="mx-auto max-w-2xl mt-12">
+      <header class="mb-2">
+        <h1 class="text-5xl text-center">Wordle</h1>
+      </header>
+      <hr />
+      <main x-data="wordleGame" class="mt-10">
+        <!-- Quess-->
+        <div class="mb-10">
+          <template x-for="(row, indexRow) in guessRows" :key="indexRow">
+            <div class="flex space-y-1 space-x-1 justify-center">
+              <template x-for="(tile, indexTile) in row" :key="indexTile">
+                <div
+                  :id="'row-' + indexRow + '-tile-' + indexTile"
+                  class="h-16 w-16 border text-center text-4xl leading-relaxed"
+                ></div>
+              </template>
+            </div>
+          </template>
+        </div>
+
+        <!-- Keyboard -->
+        <div class="grid grid-cols-10" @keydown.document="keyPress">
+          <template x-for="key in keys">
+            <button
+              :id="key"
+              class="px-2 py-4 bg-gray-900 border"
+              x-text="key"
+              @click="enteredKey(key)"
+            ></button>
+          </template>
+        </div>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
